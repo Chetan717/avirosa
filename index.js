@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const config = require("./Db/Config");
+const config = require("./src/Db/Config");
 const cors = require("cors");
 const app = express();
 const Port = 4000;
@@ -9,8 +9,8 @@ const Port = 4000;
 app.use(express.json());
 
 // Import UserRoute
-const UserRoute = require("./Route/UserRoute");
-const DailyCallRoute = require("./Route/AllAddMemberRoute");
+const UserRoute = require("./src/Route/UserRoute");
+const DailyCallRoute = require("./src/Route/AllAddMemberRoute");
 // MongoDB URI
 const mongoURI = config.dbUrl;
 
