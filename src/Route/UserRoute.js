@@ -4,6 +4,8 @@ const {
   SignInUser,
   SignupUser,
   handleAuthRequest,
+  updateUserById,
+  deleteUserById,
   userdata,
   requestOTP,
 } = require("../Controller/UserController");
@@ -30,6 +32,8 @@ router.get("/auth", handleAuthRequest, async (req, res) => {
 });
 
 router.route("/signup").post(SignupUser);
+router.route("/signup/:id").put(updateUserById);
+router.route("/signup/:id").delete(deleteUserById);
 router.route("/signin/verify").post(requestOTP);
 
 router.route("/signin").post(SignInUser);

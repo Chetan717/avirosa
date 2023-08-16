@@ -28,7 +28,7 @@ const userdata = async (req, res) => {
   try {
     const userData = await UserAuthModal.find();
 
-    res.status(201).send(userData);
+    res.status(200).send(userData);
   } catch (error) {
     res.status(400).send("something went Wrong");
   }
@@ -77,17 +77,38 @@ const SignInUser = async (req, res) => {
 };
 
 const SignupUser = async (req, res) => {
+  console.log(req.body);
   try {
-    const { Name, Email, Mobile, TypeOfUser, Password, Address } = req.body;
+    const {
+      Code,
+      empName,
+      mobile1,
+      Secmob,
+      address,
+      email,
+      post,
+      headquarters,
+      panNo,
+      adharNo,
+      bankAccountNo,
+      ifscCode,
+      dob,
+      joiningDate,
+      anniversaryDate,
+      resignationDate,
+      selectedAreas,
+      pvrRemark,
+      online,
+      Active,
+      Banned,
+      pass,
+    } = req.body;
 
-    const user = await UserAuthModal.findOne({ Email });
-    const mobileuser = await UserAuthModal.findOne({ Mobile });
+    const user = await UserAuthModal.findOne({ email });
+
     // check if user already exists
     if (user) {
       return res.status(409).json({ message: "Email is Already Exists!" });
-    }
-    if (mobileuser) {
-      return res.status(409).json({ message: " Mobile no Already Exists!" });
     }
 
     // encrypt password using bcrypt hash
@@ -95,16 +116,32 @@ const SignupUser = async (req, res) => {
 
     // create a new user and save it to the database
     const newUser = new UserAuthModal({
-      Name,
-      Email,
-      Mobile,
-      TypeOfUser,
-      Password,
-      Address,
+      Code,
+      empName,
+      mobile1,
+      Secmob,
+      address,
+      email,
+      post,
+      headquarters,
+      panNo,
+      adharNo,
+      bankAccountNo,
+      ifscCode,
+      dob,
+      joiningDate,
+      anniversaryDate,
+      resignationDate,
+      selectedAreas,
+      pvrRemark,
+      online,
+      Active,
+      Banned,
+      pass,
     });
     await newUser.save();
 
-    res.status(201).send({ massage: "Sign up successfully" });
+    res.status(200).send({ massage: "User Added successfully" });
   } catch (error) {
     res.status(500).json({ message: "Something Went Wrong!" });
     console.log(error);
@@ -172,10 +209,54 @@ const requestOTP = async (req, res) => {
   }
 };
 
+// In your module file
+const updateUserById = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const updatedData = req.body;
+
+    const updatedUser = await UserAuthModal.findByIdAndUpdate(
+      userId,
+      updatedData,
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({ message: "User Updated Succesfully !" });
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong!" });
+    console.log(error);
+  }
+};
+
+// In your module file
+const deleteUserById = async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    const deletedUser = await UserAuthModal.findByIdAndDelete(userId);
+
+    if (!deletedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({ message: "User deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong!" });
+    console.log(error);
+  }
+};
+
+
 module.exports = {
   SignupUser,
   SignInUser,
   handleAuthRequest,
+  updateUserById,
+  deleteUserById,
   userdata,
   requestOTP,
 };

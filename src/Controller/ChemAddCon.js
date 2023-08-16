@@ -5,9 +5,10 @@ const createChemist = async (req, res) => {
   try {
     const newChemist = new Chemist(req.body);
     await newChemist.save();
-    res.status(201).json(newChemist);
+    res.status(200).json({ message: "Chemist Added successfully !" });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" });
+    console.log(error);
   }
 };
 
@@ -45,7 +46,7 @@ const updateChemistById = async (req, res) => {
     if (!updatedChemist) {
       return res.status(404).json({ message: "Chemist not found" });
     }
-    res.status(200).json(updatedChemist);
+    res.status(200).json({ message: "Chemist updated Sucessfully !" });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" });
   }

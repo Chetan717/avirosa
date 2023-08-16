@@ -5,9 +5,9 @@ const createStockiest = async (req, res) => {
   try {
     const newStockiest = new Stockiest(req.body);
     await newStockiest.save();
-    res.status(201).json(newStockiest);
+    res.status(200).json({ message: "Stockiest Added Succesfully !" });
   } catch (error) {
-    res.status(500).json({ message: "Something went wrong" });
+    res.status(500).json({ message: " Something went wrong" });
   }
 };
 
@@ -45,7 +45,7 @@ const updateStockiestById = async (req, res) => {
     if (!updatedStockiest) {
       return res.status(404).json({ message: "Stockiest not found" });
     }
-    res.status(200).json(updatedStockiest);
+    res.status(200).json({ message: "Stockiest Updated" });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" });
   }

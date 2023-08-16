@@ -8,6 +8,14 @@ const Port = 4000;
 // Use the JSON parsing middleware
 app.use(express.json());
 
+// Apply CORS middleware globally
+app.use(
+  cors({
+    origin: "http://localhost:3000", // Change this to your frontend's URL
+    optionsSuccessStatus: 200,
+  })
+);
+
 // Import UserRoute
 const UserRoute = require("./src/Route/UserRoute");
 const DailyCallRoute = require("./src/Route/AllAddMemberRoute");
@@ -29,17 +37,12 @@ const connectToMongo = async () => {
 
 connectToMongo();
 
-// CORS options
-const corsOptions = {
-  origin: "http://localhost:3000",
-  optionsSuccessStatus: 200,
-};
-
 // Apply UserRoute under "/user" path
 app.use("/user", UserRoute);
 app.use("/add", DailyCallRoute);
+
 // Default route
-app.get("/", cors(corsOptions), (req, res) => {
+app.get("/", (req, res) => {
   res.status(200).send("Development server is running.");
 });
 

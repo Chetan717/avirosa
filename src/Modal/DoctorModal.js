@@ -1,35 +1,15 @@
 const mongoose = require("mongoose");
 
-const targetProductSchema = new mongoose.Schema({
-  productCode: String,
-  productName: String,
-  quantity: Number,
-});
-
-const sampleGivenSchema = new mongoose.Schema({
-  sampleCode: String,
-  sampleName: String,
-  quantityGiven: Number,
-});
-
 const doctorSchema = new mongoose.Schema({
-  codeNo: {
-    type: String,
-    required: true,
-  },
-  drName: {
-    type: String,
-    required: true,
-  },
-  email: String,
-  degree: String,
-  speciality: String,
-  mobile: String,
-  targetProduct: [targetProductSchema],
-  sampleGiven: [sampleGivenSchema],
-  area: String,
-  dob: Date,
-  doa: Date,
+  DoctorCode: { type: String },
+  DoctorName: { type: String },
+  mobile: { type: String },
+  address: { type: String },
+  Area: { type: String },
+  Degree: { type: String },
+  Speciality: { type: String },
+  Dob: { type: Date }, // You can adjust the type based on your date format
+  Doa: { type: Date },
 });
 
 const Doctor = mongoose.model("Doctor", doctorSchema);

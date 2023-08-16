@@ -1,20 +1,24 @@
 const mongoose = require("mongoose");
 
 const stockiestSchema = new mongoose.Schema({
-  codeNo: {
+  Code: {
     type: String,
-    required: true,
   },
-  drName: {
+  Name: {
     type: String,
-    required: true,
   },
-  email: String,
-  mobileno1: String,
-  mobileno2: String,
-  DLNO: String,
-  area: String,
-  gstNo: String,
+  mobile: {
+    type: String,
+  },
+  address: {
+    type: String,
+  },
+  Area: {
+    type: String,
+  },
+  Active: {
+    type: Boolean,
+  },
 });
 
 const Stockiest = mongoose.model("Stockiest", stockiestSchema);

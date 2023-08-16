@@ -5,7 +5,7 @@ const createDoctor = async (req, res) => {
   try {
     const newDoctor = new Doctor(req.body);
     await newDoctor.save();
-    res.status(201).json(newDoctor);
+    res.status(200).json({ message: "Doctor Added Sucessfully !" });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" });
   }
@@ -45,7 +45,7 @@ const updateDoctorById = async (req, res) => {
     if (!updatedDoctor) {
       return res.status(404).json({ message: "Doctor not found" });
     }
-    res.status(200).json(updatedDoctor);
+    res.status(200).json({ message: "Doctor Profile update success !" });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" });
   }

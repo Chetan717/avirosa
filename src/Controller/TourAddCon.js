@@ -5,7 +5,7 @@ const createTourProgram = async (req, res) => {
   try {
     const newTourProgram = new TourProgram(req.body);
     await newTourProgram.save();
-    res.status(201).json(newTourProgram);
+    res.status(200).json(newTourProgram);
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" });
   }
