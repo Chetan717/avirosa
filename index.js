@@ -11,7 +11,7 @@ app.use(express.json());
 // Apply CORS middleware globally
 app.use(
   cors({
-    origin: "https://avirosacli.vercel.app/", // Change this to your frontend's URL
+    origin: "https://avirosacli.vercel.app", // Change this to your frontend's URL
     optionsSuccessStatus: 200,
   })
 );
