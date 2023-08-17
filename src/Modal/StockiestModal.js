@@ -4,12 +4,17 @@ const stockiestSchema = new mongoose.Schema({
   Code: {
     type: String,
   },
+  contactPer: {
+    type: String,
+  },
   Name: {
     type: String,
   },
   mobile: {
     type: String,
   },
+  DLNo: { type: String },
+  GSTNo: { type: String },
   address: {
     type: String,
   },
@@ -19,6 +24,7 @@ const stockiestSchema = new mongoose.Schema({
   Active: {
     type: Boolean,
   },
+  approved: { type: Boolean },
 });
 
 const Stockiest = mongoose.model("Stockiest", stockiestSchema);

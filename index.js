@@ -3,7 +3,12 @@ const mongoose = require("mongoose");
 const config = require("./src/Db/Config");
 const cors = require("cors");
 const app = express();
+const http = require("http");
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const path = require("path");
 const Port = 4000;
+const io = new Server(server);
 
 // Use the JSON parsing middleware
 app.use(express.json());
@@ -11,7 +16,7 @@ app.use(express.json());
 // Apply CORS middleware globally
 app.use(
   cors({
-    origin:"https://avir.vercel.app", // Change this to your frontend's URL
+    origin: "http://localhost:3000", // Change this to your frontend's URL
     optionsSuccessStatus: 200,
   })
 );
@@ -41,12 +46,23 @@ connectToMongo();
 app.use("/user", UserRoute);
 app.use("/add", DailyCallRoute);
 
+app.use(express.static(path.resolve("./public")));
+
 // Default route
 app.get("/", (req, res) => {
-  res.status(200).send("Development server is running.");
+  res.sendFile("/public/index.html");
 });
 
+io.on("connection", (socket) => {
+  
+  socket.on("chat", (msg) => {
+   
+  });
+});
+
+
+
 // Start the server
-app.listen(Port, () => {
+server.listen(Port, () => {
   console.log(`Server is running on port ${Port}`);
 });

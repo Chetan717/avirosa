@@ -4,6 +4,7 @@ const UserAuthShema = new mongoose.Schema({
   Code: { type: String },
   pass: { type: String },
   empName: { type: String },
+  userId: { type: String },
   mobile1: { type: String },
   Secmob: { type: String },
   address: { type: String },
