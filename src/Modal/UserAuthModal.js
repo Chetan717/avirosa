@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
 const UserAuthShema = new mongoose.Schema({
-  Code: { type: String },
+  Code: { type: String, unique: true, required: true },
   pass: { type: String },
   empName: { type: String },
-  userId: { type: String },
+  userId: { type: String, unique: true, required: true },
   mobile1: { type: String },
   Secmob: { type: String },
   address: { type: String },

@@ -4,6 +4,11 @@ const Chemist = require("../Modal/ChemModal");
 const createChemist = async (req, res) => {
   try {
     const newChemist = new Chemist(req.body);
+    const { chemCode } = req.body;
+    const findCode = await Chemist.findOne({ chemCode });
+    if (findCode) {
+      return res.status(409).json({ message: "Code is Already Exists!" });
+    }
     await newChemist.save();
     res.status(200).json({ message: "Chemist Added successfully !" });
   } catch (error) {

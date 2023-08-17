@@ -82,6 +82,7 @@ const SignupUser = async (req, res) => {
     const {
       Code,
       empName,
+      userId,
       mobile1,
       Secmob,
       address,
@@ -105,10 +106,18 @@ const SignupUser = async (req, res) => {
     } = req.body;
 
     const user = await UserAuthModal.findOne({ email });
+    const userCode = await UserAuthModal.findOne({ Code });
+    const userids = await UserAuthModal.findOne({ userId });
 
     // check if user already exists
     if (user) {
       return res.status(409).json({ message: "Email is Already Exists!" });
+    }
+    if (user) {
+      return res.status(409).json({ message: "Code is Already Exists!" });
+    }
+    if (user) {
+      return res.status(409).json({ message: "User Id is Already Exists!" });
     }
 
     // encrypt password using bcrypt hash
@@ -118,6 +127,7 @@ const SignupUser = async (req, res) => {
     const newUser = new UserAuthModal({
       Code,
       empName,
+      userId,
       mobile1,
       Secmob,
       address,
@@ -249,7 +259,6 @@ const deleteUserById = async (req, res) => {
     console.log(error);
   }
 };
-
 
 module.exports = {
   SignupUser,

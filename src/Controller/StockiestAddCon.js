@@ -4,6 +4,13 @@ const Stockiest = require("../Modal/StockiestModal");
 const createStockiest = async (req, res) => {
   try {
     const newStockiest = new Stockiest(req.body);
+
+    const { Code } = req.body;
+    const findCode = await Chemist.findOne({ Code });
+    if (findCode) {
+      return res.status(409).json({ message: "Code is Already Exists!" });
+    }
+
     await newStockiest.save();
     res.status(200).json({ message: "Stockiest Added Succesfully !" });
   } catch (error) {
