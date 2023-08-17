@@ -6,7 +6,7 @@ const app = express();
 const http = require("http");
 const server = http.createServer(app);
 const { Server } = require("socket.io");
-const path = require("path");
+
 const Port = 4000;
 const io = new Server(server);
 
@@ -16,7 +16,7 @@ app.use(express.json());
 // Apply CORS middleware globally
 app.use(
   cors({
-    origin: "http://localhost:3000", // Change this to your frontend's URL
+    origin: "https://avir.vercel.app", // Change this to your frontend's URL
     optionsSuccessStatus: 200,
   })
 );
@@ -46,21 +46,14 @@ connectToMongo();
 app.use("/user", UserRoute);
 app.use("/add", DailyCallRoute);
 
-app.use(express.static(path.resolve("./public")));
-
 // Default route
 app.get("/", (req, res) => {
-  res.sendFile("/public/index.html");
+  res.send("we are live !");
 });
 
 io.on("connection", (socket) => {
-  
-  socket.on("chat", (msg) => {
-   
-  });
+  socket.on("chat", (msg) => {});
 });
-
-
 
 // Start the server
 server.listen(Port, () => {
