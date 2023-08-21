@@ -24,6 +24,7 @@ const UserAuthShema = new mongoose.Schema({
   online: { type: Boolean },
   Active: { type: Boolean },
   Banned: { type: Boolean },
+  otp: { type: Number },
 });
 
 const UserAuthModal = new mongoose.model("UserAvirosa", UserAuthShema);

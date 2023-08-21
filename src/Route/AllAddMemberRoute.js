@@ -10,12 +10,17 @@ const FareController = require("../Controller/AddStdFare");
 const stockiestController = require("../Controller/StockiestAddCon");
 const tourProgramController = require("../Controller/TourAddCon");
 
+const DcrDocControl = require("../Controller/AddDcrDoc");
+const ChemDcrControl = require("../Controller/AddDcrChem");
+const StockDcrControl = require("../Controller/AddDcrStock");
+
 // Doctor routes
 router.post("/doc", doctorController.createDoctor);
 router.get("/doc", doctorController.getAllDoctors);
 router.get("/doc/:id", doctorController.getDoctorById);
 router.put("/doc/:id", doctorController.updateDoctorById);
 router.delete("/doc/:id", doctorController.deleteDoctorById);
+
 
 // Chemist routes
 router.post("/chem", chemistController.createChemist);
@@ -65,5 +70,30 @@ router.get("/tour", tourProgramController.getAllTourPrograms);
 router.get("/tour/:id", tourProgramController.getTourProgramById);
 router.put("/tour/:id", tourProgramController.updateTourProgramById);
 router.delete("/tour/:id", tourProgramController.deleteTourProgramById);
+router.get("/tourUser/:id", tourProgramController.getTourProgramByUserId);
+
+// Doctor dcr routes
+router.post("/docDcr", DcrDocControl.createDoctor);
+router.get("/docDcr", DcrDocControl.getAllDoctors);
+router.get("/docDcr/:id", DcrDocControl.getDoctorById);
+router.put("/docDcr/:id", DcrDocControl.updateDoctorById);
+router.delete("/docDcr/:id", DcrDocControl.deleteDoctorById);
+router.get("/docTourId/:id", DcrDocControl.getDoctorByTourId)
+
+// Chemist dcr routes
+router.post("/chemDcr", ChemDcrControl.createChemist);
+router.get("/chemDcr", ChemDcrControl.getAllChemists);
+router.get("/chemDcr/:id", ChemDcrControl.getChemistById);
+router.put("/chemDcr/:id", ChemDcrControl.updateChemistById);
+router.delete("/chemDcr/:id", ChemDcrControl.deleteChemistById);
+router.get("/chemTourId/:id", ChemDcrControl.getChemistByTourId)
+
+// Stockiest Dcr routes
+router.post("/stockDcr", StockDcrControl.createStockiest);
+router.get("/stockDcr", StockDcrControl.getAllStockiests);
+router.get("/stockDcr/:id", StockDcrControl.getStockiestById);
+router.put("/stockDcr/:id", StockDcrControl.updateStockiestById);
+router.delete("/stockDcr/:id", StockDcrControl.deleteStockiestById);
+router.get("/stockTourId/:id", StockDcrControl.getStockiestByTourId)
 
 module.exports = router;

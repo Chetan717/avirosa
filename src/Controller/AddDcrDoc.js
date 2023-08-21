@@ -1,9 +1,9 @@
-const Doctor = require("../Modal/DoctorModal");
+const DcrDoctor = require("../Modal/DcrDoc");
 
 // Create a new doctor
 const createDoctor = async (req, res) => {
   try {
-    const newDoctor = new Doctor(req.body);
+    const newDoctor = new DcrDoctor(req.body);
 
     const { DoctorCode } = req.body;
     const findCode = await Doctor.findOne({ DoctorCode });
@@ -14,7 +14,6 @@ const createDoctor = async (req, res) => {
     await newDoctor.save();
 
     res.status(200).json({ message: "Doctor Added Sucessfully !" });
-
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" });
   }
@@ -23,7 +22,7 @@ const createDoctor = async (req, res) => {
 // Get all doctors
 const getAllDoctors = async (req, res) => {
   try {
-    const allDoctors = await Doctor.find();
+    const allDoctors = await DcrDoctor.find();
     res.status(200).json(allDoctors);
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" });
@@ -33,7 +32,7 @@ const getAllDoctors = async (req, res) => {
 // Get doctor by ID
 const getDoctorById = async (req, res) => {
   try {
-    const doctor = await Doctor.findById(req.params.id);
+    const doctor = await DcrDoctor.findById(req.params.id);
     if (!doctor) {
       return res.status(404).json({ message: "Doctor not found" });
     }
@@ -43,10 +42,27 @@ const getDoctorById = async (req, res) => {
   }
 };
 
+const getDoctorByTourId = async (req, res) => {
+  try {
+    const createdBy = req.params.id;
+    const tourProgram = await DcrDoctor.find({ createdBy: createdBy });
+
+    if (!tourProgram) {
+      return res
+        .status(404)
+        .json({ message: " Dcr Chemist Not Found not found" });
+    }
+    res.status(200).json(tourProgram);
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong" });
+    console.log(error);
+  }
+};
+
 // Update doctor by ID
 const updateDoctorById = async (req, res) => {
   try {
-    const updatedDoctor = await Doctor.findByIdAndUpdate(
+    const updatedDoctor = await DcrDoctor.findByIdAndUpdate(
       req.params.id,
       req.body,
       { new: true }
@@ -63,7 +79,7 @@ const updateDoctorById = async (req, res) => {
 // Delete doctor by ID
 const deleteDoctorById = async (req, res) => {
   try {
-    const deletedDoctor = await Doctor.findByIdAndDelete(req.params.id);
+    const deletedDoctor = await DcrDoctor.findByIdAndDelete(req.params.id);
     if (!deletedDoctor) {
       return res.status(404).json({ message: "Doctor not found" });
     }
@@ -77,6 +93,7 @@ module.exports = {
   createDoctor,
   getAllDoctors,
   getDoctorById,
+  getDoctorByTourId,
   updateDoctorById,
   deleteDoctorById,
 };

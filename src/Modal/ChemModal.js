@@ -9,6 +9,12 @@ const chemistSchema = new mongoose.Schema({
   Area: { type: String },
   DLNo: { type: String },
   GSTNo: { type: String },
+  createdBy: {
+    type: String,
+  },
+  createdAt: {
+    type: Date,
+  },
   approved: { type: Boolean },
 });
 

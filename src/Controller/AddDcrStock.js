@@ -1,12 +1,13 @@
-const Stockiest = require("../Modal/StockiestModal");
+
+const DcrStockiest = require("../Modal/DcrStock");
 
 // Create a new stockiest
 const createStockiest = async (req, res) => {
   try {
-    const newStockiest = new Stockiest(req.body);
+    const newStockiest = new DcrStockiest(req.body);
 
     const { Code } = req.body;
-    const findCode = await Stockiest.findOne({ Code });
+    const findCode = await DcrStockiest.findOne({ Code });
     if (findCode) {
       return res.status(409).json({ message: "Code is Already Exists!" });
     }
@@ -21,7 +22,7 @@ const createStockiest = async (req, res) => {
 // Get all stockiests
 const getAllStockiests = async (req, res) => {
   try {
-    const allStockiests = await Stockiest.find();
+    const allStockiests = await DcrStockiest.find();
     res.status(200).json(allStockiests);
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" });
@@ -31,7 +32,7 @@ const getAllStockiests = async (req, res) => {
 // Get stockiest by ID
 const getStockiestById = async (req, res) => {
   try {
-    const stockiest = await Stockiest.findById(req.params.id);
+    const stockiest = await DcrStockiest.findById(req.params.id);
     if (!stockiest) {
       return res.status(404).json({ message: "Stockiest not found" });
     }
@@ -41,10 +42,29 @@ const getStockiestById = async (req, res) => {
   }
 };
 
+
+const getStockiestByTourId = async (req, res) => {
+    try {
+      const createdBy = req.params.id;
+      const tourProgram = await DcrStockiest.find({ createdBy: createdBy });
+  
+      if (!tourProgram) {
+        return res
+          .status(404)
+          .json({ message: " Dcr Chemist Not Found not found" });
+      }
+      res.status(200).json(tourProgram);
+    } catch (error) {
+      res.status(500).json({ message: "Something went wrong" });
+      console.log(error);
+    }
+  };
+  
+
 // Update stockiest by ID
 const updateStockiestById = async (req, res) => {
   try {
-    const updatedStockiest = await Stockiest.findByIdAndUpdate(
+    const updatedStockiest = await DcrStockiest.findByIdAndUpdate(
       req.params.id,
       req.body,
       { new: true }
@@ -61,7 +81,7 @@ const updateStockiestById = async (req, res) => {
 // Delete stockiest by ID
 const deleteStockiestById = async (req, res) => {
   try {
-    const deletedStockiest = await Stockiest.findByIdAndDelete(req.params.id);
+    const deletedStockiest = await DcrStockiest.findByIdAndDelete(req.params.id);
     if (!deletedStockiest) {
       return res.status(404).json({ message: "Stockiest not found" });
     }
@@ -75,6 +95,7 @@ module.exports = {
   createStockiest,
   getAllStockiests,
   getStockiestById,
+  getStockiestByTourId,
   updateStockiestById,
   deleteStockiestById,
 };

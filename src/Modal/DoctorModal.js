@@ -11,7 +11,19 @@ const doctorSchema = new mongoose.Schema({
   Speciality: { type: String },
   Dob: { type: Date }, // You can adjust the type based on your date format
   Doa: { type: Date },
+  P1: {
+    type: String,
+  },
+  P2: {
+    type: String,
+  },
   approved: { type: Boolean },
+  createdBy: {
+    type: String,
+  },
+  createdAt: {
+    type: Date,
+  },
 });
 
 const Doctor = mongoose.model("Doctor", doctorSchema);

@@ -1,15 +1,39 @@
 const mongoose = require("mongoose");
 
 const tourProgramSchema = new mongoose.Schema({
-  date: {
+  startDate: {
     type: Date,
     required: true,
   },
-  currentBuisness: Number,
-  area: String,
-  actualTp: String,
-  expectedBuisness: Number,
-  workingWith: String,
+  lastDate: {
+    type: Date,
+    required: true,
+  },
+  workWith: {
+    type: String,
+  },
+  headQ: {
+    type: String,
+  },
+  area: {
+    type: String,
+  },
+  createdBy: {
+    type: String,
+  },
+
+  createdAt: {
+    type: Date,
+  },
+  DcrId: {
+    type: String,
+  },
+  Act: {
+    type: Boolean,
+  },
+  Apv: {
+    type: Boolean,
+  },
 });
 
 const TourProgram = mongoose.model("TourProgram", tourProgramSchema);

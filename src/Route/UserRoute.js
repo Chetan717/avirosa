@@ -1,4 +1,5 @@
 const express = require("express");
+const UserAuthModal = require("../Modal/UserAuthModal");
 const router = express.Router();
 const {
   SignInUser,
@@ -15,10 +16,11 @@ router.route("/UserDetail").get(userdata);
 router.get("/auth", handleAuthRequest, async (req, res) => {
   try {
     // Access the decoded user data from the request object
-    const user = req.user;
+    const user = req.user
 
+   
     // Fetch additional user data from the database (example using Mongoose)
-    const userData = await UserAuthModal.findById(user.userId);
+    const userData = await UserAuthModal.findById(user.userId).select("-pass");
 
     // If user data is found, send it to the client
     if (userData) {
@@ -28,6 +30,7 @@ router.get("/auth", handleAuthRequest, async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
+    console.log(error);
   }
 });
 

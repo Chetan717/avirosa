@@ -4,8 +4,26 @@ const TourProgram = require("../Modal/TourModal");
 const createTourProgram = async (req, res) => {
   try {
     const newTourProgram = new TourProgram(req.body);
+    const { createdBy, startDate, lastDate } = req.body;
+    const findTour = await TourProgram.findOne({
+      createdBy,
+      // The tour program is not expired.
+      // The tour program is active.
+      Act: true,
+    });
+
+    res.setHeader("Content-Type", "application/json");
+
+    if (findTour && findTour.Act === true) {
+      return res
+        .status(409)
+        .json({ message: "The previous tour program is not expired." });
+    }
+
     await newTourProgram.save();
-    res.status(200).json(newTourProgram);
+    res
+      .status(200)
+      .json({ message: "Tour-program created wait for approval!" });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" });
   }
@@ -31,6 +49,22 @@ const getTourProgramById = async (req, res) => {
     res.status(200).json(tourProgram);
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" });
+  }
+};
+
+/// find program by userId
+const getTourProgramByUserId = async (req, res) => {
+  try {
+    const createdBy = req.params.id;
+    const tourProgram = await TourProgram.find({ createdBy: createdBy });
+
+    if (!tourProgram) {
+      return res.status(404).json({ message: "Tour program not found" });
+    }
+    res.status(200).json(tourProgram);
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong" });
+    console.log(error);
   }
 };
 
@@ -71,5 +105,6 @@ module.exports = {
   getAllTourPrograms,
   getTourProgramById,
   updateTourProgramById,
+  getTourProgramByUserId,
   deleteTourProgramById,
 };

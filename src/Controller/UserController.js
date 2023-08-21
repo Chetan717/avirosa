@@ -37,32 +37,27 @@ const userdata = async (req, res) => {
 // sign in fuction for route /User/Signin
 const SignInUser = async (req, res) => {
   try {
-    const { Email, otp } = req.body;
+    const { userId, pass } = req.body;
 
-    console.log(otp);
     // first find the user
-    const findUser = await UserAuthModal.findOne({ Email });
+    const findUser = await UserAuthModal.findOne({ userId });
 
     // if user not found then throw error "User not Found"
     if (!findUser) {
-      return res.status(401).json({ message: "User Not Found" });
+      return res.status(401).json({ message: "User id Not Found" });
     }
 
-    if (!otp) {
-      return res.status(400).json({ message: "OTP is required" });
+    if (!pass) {
+      return res.status(400).json({ message: "Password is required" });
     }
 
     // Signing in with OTP
     // Check if the provided OTP matches the user's OTP
-    if (otp !== findUser.otp) {
-      return res.status(401).json({ message: "Invalid OTP" });
+    if (pass !== findUser.pass) {
+      return res.status(401).json({ message: "Invalid Password" });
     }
 
-    // Clear the OTP after successful sign-in
-    findUser.otp = undefined;
-    await findUser.save();
-
-    // user is found and OTP is valid, then send token.
+    // Clear the OTP after successful sign-i
 
     // token for login
     const tokenForLogin = Jwt.sign({ userId: findUser._id }, secreat_key, {
@@ -71,8 +66,7 @@ const SignInUser = async (req, res) => {
 
     res.status(200).json(tokenForLogin);
   } catch (error) {
-    res.status(500).json({ message: "Something went wrong!" });
-    console.log(error);
+    res.status(500).json({ message: "Internal Server Error !" });
   }
 };
 
@@ -113,10 +107,10 @@ const SignupUser = async (req, res) => {
     if (user) {
       return res.status(409).json({ message: "Email is Already Exists!" });
     }
-    if (user) {
+    if (userCode) {
       return res.status(409).json({ message: "Code is Already Exists!" });
     }
-    if (user) {
+    if (userids) {
       return res.status(409).json({ message: "User Id is Already Exists!" });
     }
 
@@ -151,20 +145,20 @@ const SignupUser = async (req, res) => {
     });
     await newUser.save();
 
-    res.status(200).send({ massage: "User Added successfully" });
+    res.status(200).json({ massage: "User Added sucessfully !" });
   } catch (error) {
-    res.status(500).json({ message: "Something Went Wrong!" });
+    res.status(500).json({ message: "Something Went Wrong !" });
     console.log(error);
   }
 };
 
 const requestOTP = async (req, res) => {
-  const { Email } = req.body;
+  const { email } = req.body;
 
   try {
-    const user = await UserAuthModal.findOne({ Email });
+    const user = await UserAuthModal.findOne({ email });
 
-    if (!user) {
+    if (user) {
       return res.status(401).json({ message: "User not found" });
     }
 
@@ -183,7 +177,7 @@ const requestOTP = async (req, res) => {
 
     let message = {
       from: "soilbooster717@gmail.com",
-      to: Email,
+      to: email,
       subject: "🔥 Otp-Donot Share To anyone  🔥",
       text: `otp ${otp}`,
       html: `<div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
