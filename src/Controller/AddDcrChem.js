@@ -24,9 +24,8 @@ const getAllChemists = async (req, res) => {
 
 const getChemistByTourId = async (req, res) => {
   try {
-    const createdBy = req.params.id;
-    const tourProgram = await DcrChem.find({ createdBy: createdBy });
-
+    const dcrid = req.params.id;
+    const tourProgram = await DcrChem.find({ DcrId: dcrid });
 
     if (!tourProgram) {
       return res

@@ -1,17 +1,8 @@
-
 const DcrStockiest = require("../Modal/DcrStock");
-
 // Create a new stockiest
 const createStockiest = async (req, res) => {
   try {
     const newStockiest = new DcrStockiest(req.body);
-
-    const { Code } = req.body;
-    const findCode = await DcrStockiest.findOne({ Code });
-    if (findCode) {
-      return res.status(409).json({ message: "Code is Already Exists!" });
-    }
-
     await newStockiest.save();
     res.status(200).json({ message: "Stockiest Added Succesfully !" });
   } catch (error) {
@@ -42,24 +33,23 @@ const getStockiestById = async (req, res) => {
   }
 };
 
-
 const getStockiestByTourId = async (req, res) => {
-    try {
-      const createdBy = req.params.id;
-      const tourProgram = await DcrStockiest.find({ createdBy: createdBy });
-  
-      if (!tourProgram) {
-        return res
-          .status(404)
-          .json({ message: " Dcr Chemist Not Found not found" });
-      }
-      res.status(200).json(tourProgram);
-    } catch (error) {
-      res.status(500).json({ message: "Something went wrong" });
-      console.log(error);
+  try {
+    // const createdBy = req.params.id;
+    // const tourProgram = await DcrStockiest.find({ createdBy: createdBy });
+    const dcrid = req.params.id;
+    const tourProgram = await DcrStockiest.find({ DcrId: dcrid });
+    if (!tourProgram) {
+      return res
+        .status(404)
+        .json({ message: " Dcr Chemist Not Found not found" });
     }
-  };
-  
+    res.status(200).json(tourProgram);
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong" });
+    console.log(error);
+  }
+};
 
 // Update stockiest by ID
 const updateStockiestById = async (req, res) => {
@@ -81,7 +71,9 @@ const updateStockiestById = async (req, res) => {
 // Delete stockiest by ID
 const deleteStockiestById = async (req, res) => {
   try {
-    const deletedStockiest = await DcrStockiest.findByIdAndDelete(req.params.id);
+    const deletedStockiest = await DcrStockiest.findByIdAndDelete(
+      req.params.id
+    );
     if (!deletedStockiest) {
       return res.status(404).json({ message: "Stockiest not found" });
     }

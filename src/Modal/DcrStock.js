@@ -1,7 +1,10 @@
 const mongoose = require("mongoose");
 
 const PobStockScheme = new mongoose.Schema({
-  product: {
+  id: {
+    type: String,
+  },
+  Product: {
     type: String,
   },
   Qnt: {
@@ -26,6 +29,13 @@ const DcrStockiestSchema = new mongoose.Schema({
     type: Number,
   },
   Pob: [PobStockScheme],
+  createdBy: {
+    type: String,
+  },
+
+  createdAt: {
+    type: Date,
+  },
 });
 
 const DcrStockiest = mongoose.model("DcrStockiest", DcrStockiestSchema);

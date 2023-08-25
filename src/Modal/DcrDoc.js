@@ -1,10 +1,16 @@
 const mongoose = require("mongoose");
 
 const PobDocScheme = new mongoose.Schema({
-  product: {
+  id: {
+    type: Number,
+  },
+  Product: {
     type: String,
   },
   Qnt: {
+    type: Number,
+  },
+  value: {
     type: Number,
   },
 });

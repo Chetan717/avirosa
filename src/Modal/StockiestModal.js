@@ -24,6 +24,7 @@ const stockiestSchema = new mongoose.Schema({
   Active: {
     type: Boolean,
   },
+  createdBy: { type: String },
   approved: { type: Boolean },
 });
 

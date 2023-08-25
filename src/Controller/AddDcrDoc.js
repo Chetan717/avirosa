@@ -1,24 +1,16 @@
 const DcrDoctor = require("../Modal/DcrDoc");
 
 // Create a new doctor
+
 const createDoctor = async (req, res) => {
   try {
     const newDoctor = new DcrDoctor(req.body);
-
-    const { DoctorCode } = req.body;
-    const findCode = await Doctor.findOne({ DoctorCode });
-
-    if (findCode) {
-      return res.status(409).json({ message: "Code is Already Exists!" });
-    }
     await newDoctor.save();
-
     res.status(200).json({ message: "Doctor Added Sucessfully !" });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" });
   }
 };
-
 // Get all doctors
 const getAllDoctors = async (req, res) => {
   try {
@@ -44,9 +36,10 @@ const getDoctorById = async (req, res) => {
 
 const getDoctorByTourId = async (req, res) => {
   try {
-    const createdBy = req.params.id;
-    const tourProgram = await DcrDoctor.find({ createdBy: createdBy });
-
+    // const createdBy = req.params.id;
+    // const tourProgram = await DcrDoctor.find({ createdBy: createdBy });
+    const dcrid = req.params.id;
+    const tourProgram = await DcrDoctor.find({ DcrId: dcrid });
     if (!tourProgram) {
       return res
         .status(404)
