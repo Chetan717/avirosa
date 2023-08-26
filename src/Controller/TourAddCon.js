@@ -4,7 +4,7 @@ const TourProgram = require("../Modal/TourModal");
 const createTourProgram = async (req, res) => {
   try {
     const newTourProgram = new TourProgram(req.body);
-    const { createdBy, startDate, lastDate } = req.body;
+    const { createdBy } = req.body;
     const findTour = await TourProgram.findOne({
       createdBy,
       // The tour program is not expired.
@@ -26,6 +26,7 @@ const createTourProgram = async (req, res) => {
       .json({ message: "Tour-program created wait for approval!" });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" });
+    console.log(error);
   }
 };
 
@@ -76,12 +77,14 @@ const updateTourProgramById = async (req, res) => {
       req.body,
       { new: true }
     );
+
     if (!updatedTourProgram) {
       return res.status(404).json({ message: "Tour program not found" });
     }
     res.status(200).json(updatedTourProgram);
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" });
+    console.log(error);
   }
 };
 

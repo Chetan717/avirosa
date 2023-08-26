@@ -9,6 +9,7 @@ const HeadQ = require("../Controller/AddHeadQ");
 const FareController = require("../Controller/AddStdFare");
 const stockiestController = require("../Controller/StockiestAddCon");
 const tourProgramController = require("../Controller/TourAddCon");
+const tourDateController = require("../Controller/TourDateController");
 
 const DcrDocControl = require("../Controller/AddDcrDoc");
 const ChemDcrControl = require("../Controller/AddDcrChem");
@@ -20,7 +21,6 @@ router.get("/doc", doctorController.getAllDoctors);
 router.get("/doc/:id", doctorController.getDoctorById);
 router.put("/doc/:id", doctorController.updateDoctorById);
 router.delete("/doc/:id", doctorController.deleteDoctorById);
-
 
 // Chemist routes
 router.post("/chem", chemistController.createChemist);
@@ -72,13 +72,21 @@ router.put("/tour/:id", tourProgramController.updateTourProgramById);
 router.delete("/tour/:id", tourProgramController.deleteTourProgramById);
 router.get("/tourUser/:id", tourProgramController.getTourProgramByUserId);
 
+// TourProgram by Date routes
+router.post("/tourDate", tourDateController.createTourDate);
+router.get("/tourDate", tourDateController.getAllTourDate);
+router.get("/tourDate/:id", tourDateController.getTourDateById);
+router.put("/tourDate/:id", tourDateController.updateTourDateById);
+router.delete("/tourDate/:id", tourDateController.deleteTourDateById);
+router.get("/tourDateUser/:id", tourDateController.getTourDateByUserId);
+
 // Doctor dcr routes
 router.post("/docDcr", DcrDocControl.createDoctor);
 router.get("/docDcr", DcrDocControl.getAllDoctors);
 router.get("/docDcr/:id", DcrDocControl.getDoctorById);
 router.put("/docDcr/:id", DcrDocControl.updateDoctorById);
 router.delete("/docDcr/:id", DcrDocControl.deleteDoctorById);
-router.get("/docTourId/:id", DcrDocControl.getDoctorByTourId)
+router.get("/docTourId/:id", DcrDocControl.getDoctorByTourId);
 
 // Chemist dcr routes
 router.post("/chemDcr", ChemDcrControl.createChemist);
@@ -86,7 +94,7 @@ router.get("/chemDcr", ChemDcrControl.getAllChemists);
 router.get("/chemDcr/:id", ChemDcrControl.getChemistById);
 router.put("/chemDcr/:id", ChemDcrControl.updateChemistById);
 router.delete("/chemDcr/:id", ChemDcrControl.deleteChemistById);
-router.get("/chemTourId/:id", ChemDcrControl.getChemistByTourId)
+router.get("/chemTourId/:id", ChemDcrControl.getChemistByTourId);
 
 // Stockiest Dcr routes
 router.post("/stockDcr", StockDcrControl.createStockiest);
@@ -94,6 +102,6 @@ router.get("/stockDcr", StockDcrControl.getAllStockiests);
 router.get("/stockDcr/:id", StockDcrControl.getStockiestById);
 router.put("/stockDcr/:id", StockDcrControl.updateStockiestById);
 router.delete("/stockDcr/:id", StockDcrControl.deleteStockiestById);
-router.get("/stockTourId/:id", StockDcrControl.getStockiestByTourId)
+router.get("/stockTourId/:id", StockDcrControl.getStockiestByTourId);
 
 module.exports = router;
