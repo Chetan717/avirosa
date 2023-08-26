@@ -19,7 +19,7 @@ app.use(
     origin: [
       "http://localhost:3000",
       "https://appavi.vercel.app",
-      "https://avph.vercel.app",
+      "https://avir.vercel.app",
     ], // Change this to your frontend's URL
     optionsSuccessStatus: 200,
   })
