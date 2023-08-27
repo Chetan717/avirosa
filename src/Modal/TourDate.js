@@ -28,6 +28,9 @@ const tourDateSchema = new mongoose.Schema({
   Apv: {
     type: Boolean,
   },
+  Id: {
+    type: String,
+  },
   submited: {
     type: Boolean,
   },

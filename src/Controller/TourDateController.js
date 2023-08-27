@@ -3,21 +3,30 @@ const TourDate = require("../Modal/TourDate");
 // Create a new tour program
 const createTourDate = async (req, res) => {
   try {
-    const { Date, DcrId } = req.body;
+    const { Date, Id, DcrId } = req.body;
 
-    const AlreadySubmitDate = await TourDate.find({ DcrId: `${DcrId}` });
+    const AlreadySubmitDate = await TourDate.find({
+      DcrId: `${DcrId}`,
+      Date: Date,
+    });
 
-    const FindSelectedDate = AlreadySubmitDate?.filter((i) => i.Date === Date);
+    const FindSelectedDate = AlreadySubmitDate?.map((i) => i._id);
+    const ID = FindSelectedDate.toString();
+    console.log(ID);
 
-    if (FindSelectedDate?.length === 0) {
+    if (ID) {
+      const updatedTourDate = await TourDate.findByIdAndUpdate(ID, req.body, {
+        new: true,
+      });
+
+      if (!updatedTourDate) {
+        return res.status(404).json({ message: "Tour Date not found" });
+      }
+      res.status(200).json(updatedTourDate);
+    } else {
       const newTourProgramByDate = new TourDate(req.body);
-
       await newTourProgramByDate.save();
       res.status(200).json({ message: `${Date}-Tour-program Added !` });
-    } else {
-      res
-        .status(401)
-        .json({ message: `${Date} Program is Already Added You can Edit` });
     }
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" });

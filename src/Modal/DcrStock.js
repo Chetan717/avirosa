@@ -28,6 +28,9 @@ const DcrStockiestSchema = new mongoose.Schema({
   Collection: {
     type: Number,
   },
+  DcrId: {
+    type: String,
+  },
   Pob: [PobStockScheme],
   createdBy: {
     type: String,

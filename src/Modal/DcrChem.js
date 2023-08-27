@@ -4,7 +4,7 @@ const PobChemScheme = new mongoose.Schema({
   id: {
     type: String,
   },
-  product: {
+  Product: {
     type: String,
   },
   Qnt: {
