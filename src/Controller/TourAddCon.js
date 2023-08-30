@@ -81,7 +81,7 @@ const updateTourProgramById = async (req, res) => {
     if (!updatedTourProgram) {
       return res.status(404).json({ message: "Tour program not found" });
     }
-    res.status(200).json(updatedTourProgram);
+    res.status(200).json({ message: "Program Updated Suceesfully !" });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" });
     console.log(error);

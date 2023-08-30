@@ -40,6 +40,12 @@ const DcrdoctorSchema = new mongoose.Schema({
   lit: {
     type: String,
   },
+  log: {
+    type: String,
+  },
+  lat: {
+    type: String,
+  },
   Pob: [PobDocScheme],
 
   Remark: {

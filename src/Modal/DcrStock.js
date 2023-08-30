@@ -28,6 +28,12 @@ const DcrStockiestSchema = new mongoose.Schema({
   Collection: {
     type: Number,
   },
+  log: {
+    type: String,
+  },
+  lat: {
+    type: String,
+  },
   DcrId: {
     type: String,
   },

@@ -24,10 +24,10 @@ const DcrChemSchema = new mongoose.Schema({
   Area: { type: String },
   DLNo: { type: String },
   GSTNo: { type: String },
-  Detail: {
+  log: {
     type: String,
   },
-  lit: {
+  lat: {
     type: String,
   },
   Pob: [PobChemScheme],

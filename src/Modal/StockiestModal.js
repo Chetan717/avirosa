@@ -18,9 +18,7 @@ const stockiestSchema = new mongoose.Schema({
   address: {
     type: String,
   },
-  Area: {
-    type: String,
-  },
+  Area: [String],
   Active: {
     type: Boolean,
   },
