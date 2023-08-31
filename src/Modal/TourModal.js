@@ -52,6 +52,9 @@ const tourProgramSchema = new mongoose.Schema({
   Useable: {
     type: Boolean,
   },
+  SentToApv: {
+    type: Boolean,
+  },
   Act: {
     type: Boolean,
   },
