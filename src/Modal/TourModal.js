@@ -49,7 +49,7 @@ const tourProgramSchema = new mongoose.Schema({
   DcrId: {
     type: String,
   },
-  SendToApproved: {
+  Useable: {
     type: Boolean,
   },
   Act: {
