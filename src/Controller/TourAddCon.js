@@ -7,8 +7,6 @@ const createTourProgram = async (req, res) => {
     const { createdBy } = req.body;
     const findTour = await TourProgram.findOne({
       createdBy,
-      // The tour program is not expired.
-      // The tour program is active.
       Act: true,
     });
 

@@ -16,7 +16,12 @@ app.use(express.json());
 // Apply CORS middleware globally
 app.use(
   cors({
-    origin: ["https://aviad.vercel.app", "https://avp-one.vercel.app"], // Change this to your frontend's URL
+    origin: [
+      "https://aviad.vercel.app",
+      "https://avp-one.vercel.app",
+      "http://localhost:3001",
+      "http://localhost:3000",
+    ], // Change this to your frontend's URL
     optionsSuccessStatus: 200,
   })
 );

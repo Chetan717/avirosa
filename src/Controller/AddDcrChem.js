@@ -3,12 +3,24 @@ const DcrChem = require("../Modal/DcrChem");
 // Create a new chemist
 const createChemist = async (req, res) => {
   try {
+    const { chemCode, DcrId } = req.body;
+    const tourProgram = await DcrChem.findOne({
+      DcrId: DcrId,
+      chemCode: chemCode,
+    });
+
+    if (tourProgram) {
+      return res
+        .status(409)
+        .json({ message: "DCR Of This Chemist Already Added!" });
+    }
+
     const newChemist = new DcrChem(req.body);
     await newChemist.save();
-    res.status(200).json({ message: "DCR Chemist Added successfully !" });
+
+    return res.status(200).json({ message: "DCR Chemist Added successfully!" });
   } catch (error) {
-    res.status(500).json({ message: "Something went wrong" });
-    console.log(error);
+    return res.status(500).json({ message: "Something went wrong" });
   }
 };
 

@@ -4,6 +4,16 @@ const DcrDoctor = require("../Modal/DcrDoc");
 
 const createDoctor = async (req, res) => {
   try {
+    const { DoctorCode, DcrId } = req.body;
+    const tourProgram = await DcrDoctor.findOne({
+      DcrId: DcrId,
+      DoctorCode: DoctorCode,
+    });
+    if (tourProgram) {
+      return res
+        .status(409)
+        .json({ message: "DCR Of This Doctor Already Added!" });
+    }
     const newDoctor = new DcrDoctor(req.body);
     await newDoctor.save();
     res.status(200).json({ message: "Doctor Added Sucessfully !" });
