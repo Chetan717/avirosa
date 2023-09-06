@@ -19,7 +19,6 @@ app.use(
     origin: [
       "https://aviad.vercel.app",
       "https://avp-one.vercel.app",
-      "http://localhost:3001",
       "http://localhost:3000",
     ], // Change this to your frontend's URL
     optionsSuccessStatus: 200,

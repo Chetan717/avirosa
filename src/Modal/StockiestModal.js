@@ -15,6 +15,12 @@ const stockiestSchema = new mongoose.Schema({
   },
   DLNo: { type: String },
   GSTNo: { type: String },
+  DateOfBirth: {
+    type: String,
+  },
+  DateOfAni: {
+    type: String,
+  },
   address: {
     type: String,
   },
