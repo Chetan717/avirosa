@@ -7,6 +7,7 @@ const createChemist = async (req, res) => {
     const tourProgram = await DcrChem.findOne({
       DcrId: DcrId,
       chemCode: chemCode,
+      createdAt: Date.now(),
     });
 
     if (tourProgram) {
