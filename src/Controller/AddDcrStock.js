@@ -2,16 +2,16 @@ const DcrStockiest = require("../Modal/DcrStock");
 // Create a new stockiest
 const createStockiest = async (req, res) => {
   try {
-    const { Code, DcrId } = req.body;
-    const tourProgram = await DcrStockiest.findOne({
-      DcrId: DcrId,
-      Code: Code,
-    });
-    if (tourProgram) {
-      return res
-        .status(409)
-        .json({ message: "DCR Of This Stockiest Already Added!" });
-    }
+    // const { Code, DcrId } = req.body;
+    // const tourProgram = await DcrStockiest.findOne({
+    //   DcrId: DcrId,
+    //   Code: Code,
+    // });
+    // if (tourProgram) {
+    //   return res
+    //     .status(409)
+    //     .json({ message: "DCR Of This Stockiest Already Added!" });
+    // }
     const newStockiest = new DcrStockiest(req.body);
     await newStockiest.save();
     res.status(200).json({ message: "Stockiest Added Succesfully !" });

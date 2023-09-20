@@ -3,18 +3,18 @@ const DcrChem = require("../Modal/DcrChem");
 // Create a new chemist
 const createChemist = async (req, res) => {
   try {
-    const { chemCode, DcrId } = req.body;
-    const tourProgram = await DcrChem.findOne({
-      DcrId: DcrId,
-      chemCode: chemCode,
-      createdAt: Date.now(),
-    });
+    // const { chemCode, DcrId } = req.body;
+    // const tourProgram = await DcrChem.findOne({
+    //   DcrId: DcrId,
+    //   chemCode: chemCode,
+    //   createdAt: Date.now(),
+    // });
 
-    if (tourProgram) {
-      return res
-        .status(409)
-        .json({ message: "DCR Of This Chemist Already Added!" });
-    }
+    // if (tourProgram) {
+    //   return res
+    //     .status(409)
+    //     .json({ message: "DCR Of This Chemist Already Added!" });
+    // }
 
     const newChemist = new DcrChem(req.body);
     await newChemist.save();
