@@ -1,5 +1,25 @@
 const mongoose = require("mongoose");
 
+
+
+const currentTime = new Date();
+
+// Get the current hours, minutes, and seconds
+const currentHours = currentTime.getHours();
+const currentMinutes = currentTime.getMinutes();
+const currentSeconds = currentTime.getSeconds();
+
+// Determine whether it's AM or PM
+const period = currentHours >= 12 ? 'PM' : 'AM';
+
+// Convert to 12-hour format
+const twelveHourFormatHours = currentHours % 12 || 12;
+
+// Format the time as hh:MM:SS AM/PM
+const formattedCurrentTime = `${twelveHourFormatHours.toString().padStart(2, '0')}:${currentMinutes.toString().padStart(2, '0')}:${currentSeconds.toString().padStart(2, '0')} ${period}`;
+
+
+
 const PobStockScheme = new mongoose.Schema({
   id: {
     type: String,
@@ -45,6 +65,10 @@ const DcrStockiestSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
   },
+  time: {
+    type: String,
+    default: formattedCurrentTime
+  }
 });
 
 const DcrStockiest = mongoose.model("DcrStockiest", DcrStockiestSchema);
