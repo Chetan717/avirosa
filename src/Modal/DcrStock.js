@@ -4,13 +4,9 @@ const currentDate = new Date();
 const hours = currentDate.getHours();
 const minutes = currentDate.getMinutes();
 const amPM = hours >= 12 ? 'PM' : 'AM';
-
 // Convert 24-hour time to 12-hour time
 const formattedHours = hours % 12 || 12;
-
 const formattedTime = `${formattedHours}:${minutes.toString().padStart(2, '0')} ${amPM}`;
-
-
 const PobStockScheme = new mongoose.Schema({
   id: {
     type: String,
