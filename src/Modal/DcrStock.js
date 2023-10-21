@@ -1,12 +1,14 @@
 const mongoose = require("mongoose");
 
+const currentDate = new Date();
+const hours = currentDate.getHours();
+const minutes = currentDate.getMinutes();
+const amPM = hours >= 12 ? 'PM' : 'AM';
 
+// Convert 24-hour time to 12-hour time
+const formattedHours = hours % 12 || 12;
 
-
-
-// Format the time as hh:MM:SS AM/PM
-const formattedCurrentTime = new Date()
-
+const formattedTime = `${formattedHours}:${minutes.toString().padStart(2, '0')} ${amPM}`;
 
 
 const PobStockScheme = new mongoose.Schema({
@@ -56,7 +58,7 @@ const DcrStockiestSchema = new mongoose.Schema({
   },
   time: {
     type: String,
-    default: formattedCurrentTime
+    default: formattedTime
   }
 });
 
